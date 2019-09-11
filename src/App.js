@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import { CardList } from './components/card-list/card-list'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    userlist: [],
+    searchval: ''
+  }
+
+  componentDidMount () {
+    fetch('http://jsonplaceholder.typicode.com/users')
+      .then(res => res.json())
+      .then(user => {
+        this.setState({userlist: user})
+      })
+  }
+
+  render () {
+    let { userlist, searchval } = this.state
+    let filterval = userlist.filter(user => user.name.toLowerCase().includes(searchval.toLowerCase()))
+    return (
+      <div className="App">
+        <input type='search' onChange={e => this.setState({searchval: e.target.value})}/>
+        {console.log(filterval)
+        }
+        <header> 
+          <CardList userlist={filterval}/>
+        </header> 
+      </div>
+    )
+  }
+
+  // render () {
+  //   return (
+  //     <div className="App">
+  //       <header className="App-header">
+  //         <Card userlist={this.state.userlist} />
+  //         {/* <CardList userlist={this.state.userlist}/> */}
+  //       </header> 
+  //     </div>
+  //   )
+  // }
 }
 
 export default App;
