@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { CardList } from './components/card-list/card-list'
+import { Search } from './components/search/search'
 import './App.css';
 
 class App extends Component {
@@ -16,14 +17,17 @@ class App extends Component {
       })
   }
 
+  handleChange = val => {
+    this.setState({searchval: val.target.value})
+  }
+
   render () {
     let { userlist, searchval } = this.state
     let filterval = userlist.filter(user => user.name.toLowerCase().includes(searchval.toLowerCase()))
     return (
       <div className="App">
-        <input type='search' onChange={e => this.setState({searchval: e.target.value})}/>
-        {console.log(filterval)
-        }
+        <h1>hello react</h1>
+        <Search handleChange={this.handleChange} placeholder={'you are choose'} />
         <header> 
           <CardList userlist={filterval}/>
         </header> 

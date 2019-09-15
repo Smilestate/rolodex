@@ -1,10 +1,10 @@
 import React from 'react'
 import './card.css'
 
-export const Card = props => <div>
+export const Card = ({userlist}) => <div>
   <div className='card-container'>
-    <img src={`https://robohash.org/${props.userlist.id}?set=set2&size=180x180`} alt="user" />
-    <h3>{props.userlist.name}</h3>
+    <img src={`https://robohash.org/${userlist.id}?set=set2&size=180x180`} alt="user" />
+    <h3>{userlist.name}</h3>
   </div>
 </div>
 
